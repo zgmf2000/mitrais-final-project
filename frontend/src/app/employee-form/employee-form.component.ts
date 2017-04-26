@@ -8,6 +8,7 @@ import { DivisionService } from '../division.service';
 import { RefreshService } from '../refresh-service.service';
 import { UtilityToken } from '../providers';
 import { Router, ActivatedRoute} from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -62,6 +63,7 @@ export class EmployeeFormComponent implements OnInit {
       private activatedRoute: ActivatedRoute,
       public snackBar: MdSnackBar,
       private router: Router,
+      private datePipe: DatePipe,
       @Inject(UtilityToken) public utilityList
   )
   {
@@ -110,17 +112,7 @@ export class EmployeeFormComponent implements OnInit {
 
   convertDate(milliseconds)
   {
-    const time = new Date(milliseconds);
-    let month, date;
-    if (time.getMonth()<10)
-      month = `0${time.getMonth()}`;
-    else
-      month = time.getMonth();
-    if (time.getDate()<10)
-      date = `0${time.getDate()}`;
-    else
-      date = time.getDate();
-    return `${time.getFullYear()}-${month}-${date}`;
+    return this.datePipe.transform(milliseconds, 'yyyy-MM-dd');
   }
 
   ngOnInit() {

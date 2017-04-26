@@ -14,6 +14,7 @@ import {
     MdDialogModule,
     MdSnackBarModule
 } from '@angular/material';
+import { DatePipe } from '@angular/common';
 
 import { AppComponent, DeleteDialogComponent, FilterDialogComponent } from './app.component';
 import { UtilityList, UtilityToken } from './providers';
@@ -63,6 +64,7 @@ import { EmployeeContainerPlaceholderComponent } from './employee-container-plac
       GradeService,
       DivisionService,
       RefreshService,
+      DatePipe,
       { provide: UtilityToken, useValue: UtilityList }
   ],
   bootstrap: [AppComponent]
