@@ -1,0 +1,76 @@
+.employee-card
+{
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 10px;
+    max-height: 200px;
+    cursor: pointer;
+}
+
+.employee-card.selected
+{
+    background-color: lightgray;
+}
+
+.employee-card.selected .selector .material-icons
+{
+    color: black;
+}
+
+.employee-card p
+{
+    margin: 0;
+}
+
+.employee-card .profile-information>p
+{
+    width: 80%;
+}
+
+.employee-card .profile-picture
+{
+    width: 15%;
+    height: 56px;
+    float: left;
+}
+
+.employee-card .profile-picture img
+{
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 100px;
+}
+
+.employee-card .profile-information
+{
+    width: 80%;
+    margin-top: 5px;
+    margin-left: 10px;
+    float: left;
+}
+
+.employee-card .hire-date
+{
+    position: absolute;
+    right: 10px;
+}
+
+.employee-card .selector
+{
+    position: absolute;
+    right: 0;
+    top: 50%;
+}
+
+.employee-card .selector .material-icons:nth-child(2)
+{
+    color: black;
+}
+
+.employee-card .selector .material-icons
+{
+    color: #6f74dd;
+    font-size: 24px;
+    margin: 0;
+}

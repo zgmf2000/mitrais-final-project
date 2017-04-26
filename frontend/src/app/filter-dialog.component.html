@@ -1,0 +1,23 @@
+<h1 md-dialog-title>Filter Employees</h1>
+<div md-dialog-content>
+    <p>Filter employees which are: </p>
+    <form>
+        <md-select placeholder="Gender" [(ngModel)]="gender_filter" (change)="setGenderFilter($event)" name="gender_filter">
+            <md-option value="All">All</md-option>
+            <md-option *ngFor="let gender of utilityList.gender" [value]="gender">
+                {{gender}}
+            </md-option>
+        </md-select>
+        &nbsp;and located in&nbsp;
+        <md-select placeholder="Location" [(ngModel)]="location_filter" (change)="setLocationFilter($event)" name="location_filter">
+            <md-option value="0">Anywhere</md-option>
+            <md-option *ngFor="let location of locations" [value]="location.locationId">
+                {{location.locationName}}
+            </md-option>
+        </md-select>
+    </form>
+</div>
+<div md-dialog-actions>
+    <button md-button (click)="initiateFilter()">Filter</button>
+    <button md-button (click)="dialogRef.close(false)">Cancel</button>
+</div>

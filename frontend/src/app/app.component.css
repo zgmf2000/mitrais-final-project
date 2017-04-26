@@ -1,0 +1,159 @@
+section
+{
+    box-sizing: border-box;
+    float: left;
+    position: relative;
+    -webkit-box-shadow: 2px -2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px -2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px -2px 5px 0px rgba(0,0,0,0.75);
+}
+
+section>.utility-container
+{
+    box-sizing: border-box;
+    height: 48px;
+    padding: 10px 5px;
+    background-color: #6f74dd;
+}
+
+.utility-search-component
+{
+    width: 60%;
+}
+
+.utility-search-component
+{
+    float: left;
+}
+
+.utility-misc-component
+{
+    width: 40%;
+}
+
+.utility-misc-component.nav-right *
+{
+    margin: 0 1px;
+}
+
+.utility-misc-component>.utility-icon
+{
+    float: right;
+}
+
+.utility-icon
+{
+    color: white;
+    font-size: 29px;
+    height: 29px;
+    width: 29px;
+    cursor: pointer;
+}
+
+.input-group
+{
+    width: 100%;
+}
+
+.input-group *
+{
+    float: left;
+}
+
+.input-group>input
+{
+    box-sizing: border-box;
+    width: 85%;
+    padding: 5px;
+    color: white;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    border-bottom: solid white 2px;
+    margin-left: 5px;
+    -webkit-transition: ease all 0.1s;
+    -moz-transition: ease all 0.1s;
+    -ms-transition: ease all 0.1s;
+    -o-transition: ease all 0.1s;
+    transition: ease all 0.1s;
+}
+
+.input-group>input::-webkit-input-placeholder
+{
+    color: white;
+}
+
+.input-group>input::-moz-placeholder
+{
+    color: white;
+}
+
+.input-group>input:-ms-input-placeholder
+{
+    color: white;
+}
+
+.input-group>input:focus
+{
+    outline: none;
+    border-bottom: solid white 5px;
+}
+
+section>.content-container
+{
+    padding: 10px;
+    height: calc(100vh - 108px);
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+section.content>.content-container
+{
+    overflow-y: scroll;
+    position: relative;
+    padding-left: 0;
+    padding-bottom: 0;
+}
+
+.sidebar
+{
+    width: 30%;
+}
+
+.content
+{
+    width: 70%;
+}
+
+.toggle-add-employee
+{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0,-50%);
+}
+
+.large
+{
+    height: 32px;
+    width: 32px;
+    font-size: 32px;
+    margin-top: 6px;
+}
+
+.utility-chip
+{
+    background-color: lightgray;
+    padding: 5px;
+    border-radius: 100px;
+}
+
+/deep/ .mat-tab-label
+{
+    box-sizing: border-box;
+    min-width: 16.6666667%!important;
+}
+
+/deep/ .mat-chip-list
+{
+    float: right;
+}

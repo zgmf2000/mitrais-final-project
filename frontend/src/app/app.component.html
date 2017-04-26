@@ -1,0 +1,65 @@
+<section ngClass="sidebar">
+    <div ngClass="utility-container">
+        <div class="utility-search-component nav-left">
+            <div class="input-group">
+                <md-icon ngClass="utility-icon">search</md-icon>
+                <input type="text" (keyup)="initiateSearch($event)" class="input-mock-material" id="search" placeholder="search">
+            </div>
+        </div>
+        <div class="utility-misc-component nav-right">
+            <md-chip-list>
+                <md-basic-chip ngClass="utility-chip">{{ employeeList.length }}</md-basic-chip>
+            </md-chip-list>
+            <md-icon ngClass="utility-icon" (click)="openFilterDialog()">filter_list</md-icon>
+            <md-icon ngClass="utility-icon" (click)="initiateSort()">sort</md-icon>
+            <md-icon ngClass="utility-icon" *ngIf="deleteTarget" (click)="openDeleteDialog()">delete</md-icon>
+        </div>
+    </div>
+    <div ngClass="content-container">
+        <p style="text-align: center; font-style: italic;" *ngIf="employeeList.length === 0">Sorry, but we can't find any employees in the selected criteria(s).</p>
+
+        <app-employee-card *ngFor="let employee of employeeList"
+                           [employee]="employee" (click)="onCardClick(employee)"
+                           [selectedId]="(selectedEmployee)?selectedEmployee.employeeId:undefined">
+
+        </app-employee-card>
+    </div>
+    <button md-mini-fab ngClass="toggle-add-employee" (click)="showAddEmployeeForm()"><md-icon>add</md-icon></button>
+</section>
+<section ngClass="content">
+        <md-tab-group [selectedIndex]="selectedTab">
+            <md-tab tabindex="0">
+                <ng-template md-tab-label>
+                    <md-icon class="large">person</md-icon>
+                </ng-template>
+            </md-tab>
+            <md-tab tabindex="1">
+                <ng-template md-tab-label>
+                    <md-icon class="large">restore</md-icon>
+                </ng-template>
+            </md-tab>
+            <md-tab tabindex="2">
+                <ng-template md-tab-label>
+                    <md-icon class="large">layers</md-icon>
+                </ng-template>
+            </md-tab>
+            <md-tab tabindex="3">
+                <ng-template md-tab-label>
+                    <md-icon class="large">wc</md-icon>
+                </ng-template>
+            </md-tab>
+            <md-tab tabindex="4">
+                <ng-template md-tab-label>
+                    <md-icon class="large">home</md-icon>
+                </ng-template>
+            </md-tab>
+            <md-tab tabindex="5">
+                <ng-template md-tab-label>
+                    <md-icon class="large">place</md-icon>
+                </ng-template>
+            </md-tab>
+        </md-tab-group>
+    <div ngClass="content-container">
+        <router-outlet></router-outlet>
+    </div>
+</section>

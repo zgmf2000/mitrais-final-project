@@ -1,0 +1,86 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" enctype="multipart/form-data">
+
+  <div class="input-container">
+    <md-input-container class="input-block">
+      <input mdInput [(ngModel)]="selectedEmployee.firstName" placeholder="First Name" name="firstName" id="firstName" formControlName="firstName">
+    </md-input-container>
+
+    <md-input-container class="input-block">
+      <input mdInput [(ngModel)]="selectedEmployee.lastName" placeholder="Last Name" name="lastName" id="lastName" formControlName="lastName">
+    </md-input-container>
+
+    <md-select class="input-block" [(ngModel)]="selectedEmployee.gender" placeholder="Gender" name="gender" id="gender" formControlName="gender">
+      <md-option *ngFor="let gender of utilityList.gender" [value]="gender">{{ gender }}</md-option>
+    </md-select>
+
+    <md-input-container class="input-block">
+      <input [(ngModel)]="selectedEmployee.dob" mdInput type="date" placeholder="Date of Birth" name="dob" id="dob" formControlName="dob">
+    </md-input-container>
+
+    <md-input-container class="input-block">
+      <input mdInput [(ngModel)]="selectedEmployee.nationality" placeholder="Nationality" name="nationality" id="nationality" formControlName="nationality">
+    </md-input-container>
+
+    <md-select class="input-block" placeholder="Marital Status" [(ngModel)]="selectedEmployee.maritalStatus" name="maritalStatus" id="maritalStatus" formControlName="maritalStatus">
+      <md-option *ngFor="let maritalStatus of utilityList.marital_status" [value]="maritalStatus">
+        {{ maritalStatus }}
+      </md-option>
+    </md-select>
+
+    <md-select class="input-block" placeholder="Location" [(ngModel)]="selectedEmployee.location.locationId" name="locationId" id="locationId" formControlName="locationId">
+      <md-option *ngFor="let location of locations" [value]="location.locationId">
+        {{ location.locationName }}
+      </md-option>
+    </md-select>
+
+    <md-input-container class="input-block">
+      <input mdInput placeholder="Phone" [(ngModel)]="selectedEmployee.phoneNo" name="phoneNo" id="phoneNo" formControlName="phoneNo">
+    </md-input-container>
+  </div>
+
+  <div class="input-container">
+    <md-input-container class="input-block">
+      <input mdInput placeholder="Sub Division" [(ngModel)]="selectedEmployee.subDivision" name="subDivision" id="subDivision" formControlName="subDivision">
+    </md-input-container>
+
+    <md-input-container class="input-block">
+      <input mdInput placeholder="Status" [(ngModel)]="selectedEmployee.status" name="status" id="status" formControlName="status">
+    </md-input-container>
+
+    <md-input-container class="input-block">
+      <input mdInput type="date" [(ngModel)]="selectedEmployee.suspendDate" placeholder="Suspend Date" name="suspendDate" id="suspendDate" formControlName="suspendDate">
+    </md-input-container>
+
+    <md-input-container class="input-block">
+      <input mdInput type="date" [(ngModel)]="selectedEmployee.hireDate" placeholder="Hire Date" name="hireDate" id="hireDate" formControlName="hireDate">
+    </md-input-container>
+
+    <md-select class="input-block" placeholder="Division" (change)="getGrades($event.value)" [(ngModel)]="selectedEmployee.division.divisionId" name="divisionId" id="divisionId" formControlName="divisionId">
+      <md-option *ngFor="let division of divisions" [value]="division.divisionId">
+        {{ division.divisionName }}
+      </md-option>
+    </md-select>
+
+    <md-select class="input-block" placeholder="Grade" [(ngModel)]="selectedEmployee.grade.gradeId" name="gradeId" id="gradeId" formControlName="gradeId">
+      <md-option *ngFor="let grade of grades" [value]="grade.gradeId">
+        {{ grade.gradeCode + ' - ' + grade.gradeName }}
+      </md-option>
+    </md-select>
+
+    <md-input-container class="input-block">
+      <input mdInput type="email" placeholder="Email" [(ngModel)]="selectedEmployee.email" name="email" id="email" formControlName="email">
+    </md-input-container>
+
+    <label id="trigger-photo-upload" for="photo" hidden></label>
+    <input type="file" hidden name="photo" id="photo" (change)="setFile($event)" accept="image/*" formControlName="photo">
+  </div>
+
+  <div class="input-container picture-input-container">
+    <img class="profile-picture" [src]="employeePicture" width="70%" (click)="triggerUploadWindow()">
+  </div>
+
+  <div class="input-container submit-button-container">
+    <a (click)="sendCancel()" color="light" md-raised-button>Cancel</a>
+    <button type="submit" color="accent" md-raised-button>Submit</button>
+  </div>
+</form>

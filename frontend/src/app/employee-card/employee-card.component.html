@@ -1,0 +1,21 @@
+<md-card [ngClass]="{'employee-card':true, 'selected':(employee.employeeId === selectedId)}">
+  <md-card-content>
+    <div class="profile-picture">
+      <img [src]="getPictureLink()" height="100%">
+    </div>
+    <div class="profile-information">
+      <p>
+        <strong>{{ employee.firstName + " " + employee.lastName }}</strong><br>
+        {{ employee.grade.gradeName + ", " + employee.division.divisionCode + " " + employee.subDivision }}<br>
+        {{ employee.location.locationName + ", " + employee.phoneNo }}
+      </p>
+    </div>
+    <div class="hire-date">
+      <p>{{ employee.hireDate | date : 'dd MMM y' }}</p>
+    </div>
+    <div class="selector">
+      <i class="material-icons">radio_button_checked</i>
+      <i class="material-icons">chevron_right</i>
+    </div>
+  </md-card-content>
+</md-card>
