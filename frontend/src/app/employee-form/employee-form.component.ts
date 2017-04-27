@@ -9,8 +9,8 @@ import { RefreshService } from '../refresh-service.service';
 import { UtilityToken } from '../providers';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { CustomValidators } from 'ng2-validation';
 
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-employee-form',
@@ -22,13 +22,14 @@ export class EmployeeFormComponent implements OnInit {
   locations;
   divisions;
   grades;
+  submitted: boolean = false;
   employeeId;
   employeePicture = '../../../assets/user-icon.svg';
   selectedEmployee = {
     employeeId  : null,
     firstName : null,
     lastName : null,
-    gender: null,
+    gender: "Male",
     photo: null,
     status: null,
     phoneNo: null,
@@ -98,13 +99,18 @@ export class EmployeeFormComponent implements OnInit {
     });
   }
 
+  scrollFormToTop()
+  {
+        const formContainer : any = document.getElementsByClassName('content')[0].childNodes[3];
+        formContainer.scrollTop = 0;
+  }
+
   sendCancel()
   {
     if (this.router.url.indexOf('edit') >= 0)
     {
       this.initializeForm();
-      const formContainer : any = document.getElementsByClassName('content')[0].childNodes[3];
-      formContainer.scrollTop = 0;
+      this.scrollFormToTop();
     }
     else
       this.router.navigate(['/']);
@@ -115,23 +121,76 @@ export class EmployeeFormComponent implements OnInit {
     return this.datePipe.transform(milliseconds, 'yyyy-MM-dd');
   }
 
+  validateDate(date)
+  {
+    const dateValue = moment(date.value);
+
+    if (moment(dateValue).isValid())
+      return null;
+    else
+    {
+      return {
+        validateDate : {
+          valid : false
+        }
+      };
+    }
+  }
+
+  validateBirthDate(dob)
+  {
+    const currentYear = moment();
+    const birthYear = moment(dob.value);
+
+    if (currentYear.diff(birthYear, 'years') < 18)
+      return {
+        validateBirthDate: {
+          valid: false
+        }
+      };
+    else
+      return null;
+  }
+
+  validateSuspendDate(suspendDate)
+  {
+    const hiringDate = (<HTMLInputElement>document.getElementById("hireDate")).value;
+
+    if (!hiringDate)
+      return null;
+    else
+    {
+      const hireDate = moment(hiringDate);
+      const suspensionDate = moment(suspendDate.value);
+
+      if (suspensionDate.isBefore(hireDate))
+        return {
+        validateSuspendDate: {
+          valid: false
+        }
+      };
+    }
+
+    return null;
+  }
+
   ngOnInit() {
     this.form = this.formBuilder.group({
-      firstName     : this.formBuilder.control(''),
-      lastName      : this.formBuilder.control(''),
-      gender        : this.formBuilder.control(''),
+      firstName     : this.formBuilder.control('', [Validators.required]),
+      lastName      : this.formBuilder.control('', [Validators.required]),
+      gender        : this.formBuilder.control('', [Validators.required]),
       photo         : this.formBuilder.control(''),
       status        : this.formBuilder.control(''),
-      locationId    : this.formBuilder.control(''),
-      phoneNo       : this.formBuilder.control(''),
-      email         : this.formBuilder.control('', [Validators.required, CustomValidators.email]),
-      dob           : this.formBuilder.control(''),
-      suspendDate   : this.formBuilder.control(''),
-      hireDate      : this.formBuilder.control(''),
+      locationId    : this.formBuilder.control('', [Validators.required]),
+      phoneNo       : this.formBuilder.control('', [Validators.required]),
+      email         : this.formBuilder.control('', [Validators.required, Validators.email]),
+      dob           : this.formBuilder.control('', [Validators.required, this.validateDate, this.validateBirthDate]),
+      suspendDate   : this.formBuilder.control('', [this.validateDate, this.validateSuspendDate]),
+      hireDate      : this.formBuilder.control('', [Validators.required, this.validateDate]),
       nationality   : this.formBuilder.control(''),
-      gradeId       : this.formBuilder.control(''),
-      maritalStatus : this.formBuilder.control(''),
-      divisionId    : this.formBuilder.control(''),
+      gradeId       : this.formBuilder.control('', [Validators.required]),
+      maritalStatus : this.formBuilder.control('', [Validators.required]),
+      divisionId    : this.formBuilder.control('', [Validators.required]),
       subDivision   : this.formBuilder.control('')
     });
   }
@@ -172,6 +231,11 @@ export class EmployeeFormComponent implements OnInit {
 
   onSubmit(submittedFormData)
   {
+    this.submitted = true;
+
+    if (!this.form.valid)
+      return false;
+
     let formData : any = new FormData(document.getElementsByTagName("form")[0]);
 
     //Add data from select options
@@ -188,6 +252,7 @@ export class EmployeeFormComponent implements OnInit {
     {
       this.employeeService.edit(formData, this.employeeId).subscribe((response) => {
         this.refreshService.notifyOther({ option: 'refresh', value: 'from form' });
+        this.scrollFormToTop();
         this.snackBar.open(`Employee ${response.firstName} ${response.lastName} edited!`, 'OK', {
           duration: 1500
         });
@@ -197,7 +262,7 @@ export class EmployeeFormComponent implements OnInit {
     {
       this.employeeService.add(formData).subscribe((response) => {
         this.refreshService.notifyOther({ option: 'refresh', value: 'from form' });
-        this.snackBar.open('Employee successfully deleted!', 'OK', {
+        this.snackBar.open('Employee successfully created!', 'OK', {
           duration: 1500
         });
       });

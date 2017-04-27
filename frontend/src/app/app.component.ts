@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
       {
         this.getEmployees();
         this.sortEmployees();
-        this.resetSelection();
       }
       else if (res.hasOwnProperty('option') && res.option === 'highlight')
       {

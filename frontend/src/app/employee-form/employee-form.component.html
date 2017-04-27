@@ -1,76 +1,128 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" enctype="multipart/form-data">
 
+<div class="outer-container">
   <div class="input-container">
-    <md-input-container class="input-block">
-      <input mdInput [(ngModel)]="selectedEmployee.firstName" placeholder="First Name" name="firstName" id="firstName" formControlName="firstName">
-    </md-input-container>
+    
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput [(ngModel)]="selectedEmployee.firstName" placeholder="First Name" name="firstName" id="firstName" formControlName="firstName">
+      </md-input-container>
+      <p *ngIf="form.controls.firstName.errors?.required&&(form.controls.firstName.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input mdInput [(ngModel)]="selectedEmployee.lastName" placeholder="Last Name" name="lastName" id="lastName" formControlName="lastName">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput [(ngModel)]="selectedEmployee.lastName" placeholder="Last Name" name="lastName" id="lastName" formControlName="lastName">
+      </md-input-container>
+      <p *ngIf="form.controls.lastName.errors?.required&&(form.controls.lastName.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
 
-    <md-select class="input-block" [(ngModel)]="selectedEmployee.gender" placeholder="Gender" name="gender" id="gender" formControlName="gender">
-      <md-option *ngFor="let gender of utilityList.gender" [value]="gender">{{ gender }}</md-option>
-    </md-select>
+    <div class="form-input-container">
+      <md-select class="input-block" [(ngModel)]="selectedEmployee.gender" placeholder="Gender" name="gender" id="gender" formControlName="gender">
+        <md-option *ngFor="let gender of utilityList.gender" [value]="gender">{{ gender }}</md-option>
+      </md-select>
+      <p *ngIf="form.controls.gender.errors?.required&&(form.controls.gender.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input [(ngModel)]="selectedEmployee.dob" mdInput type="date" placeholder="Date of Birth" name="dob" id="dob" formControlName="dob">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input [(ngModel)]="selectedEmployee.dob" mdInput type="date" placeholder="Date of Birth" name="dob" id="dob" formControlName="dob">
+      </md-input-container>
+      <p *ngIf="form.controls.dob.errors?.required&&(form.controls.dob.touched||submitted)" class="error-message">This field is required.</p>
+      <p *ngIf="form.controls.dob.errors?.validateBirthDate" class="error-message">No person below 18 of age is allowed to work.</p>
+      <p *ngIf="form.controls.dob.errors?.validateDate&&(form.controls.hireDate.touched||submitted)" class="error-message">Please input a valid date.</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input mdInput [(ngModel)]="selectedEmployee.nationality" placeholder="Nationality" name="nationality" id="nationality" formControlName="nationality">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput [(ngModel)]="selectedEmployee.nationality" placeholder="Nationality" name="nationality" id="nationality" formControlName="nationality">
+      </md-input-container>
+      <p *ngIf="!form.valid && submitted" class="error-message">P</p>
+    </div>
 
-    <md-select class="input-block" placeholder="Marital Status" [(ngModel)]="selectedEmployee.maritalStatus" name="maritalStatus" id="maritalStatus" formControlName="maritalStatus">
-      <md-option *ngFor="let maritalStatus of utilityList.marital_status" [value]="maritalStatus">
-        {{ maritalStatus }}
-      </md-option>
-    </md-select>
+    <div class="form-input-container">
+      <md-select class="input-block" placeholder="Marital Status" [(ngModel)]="selectedEmployee.maritalStatus" name="maritalStatus" id="maritalStatus" formControlName="maritalStatus">
+        <md-option *ngFor="let maritalStatus of utilityList.marital_status" [value]="maritalStatus">
+          {{ maritalStatus }}
+        </md-option>
+      </md-select>
+      <p *ngIf="form.controls.maritalStatus.errors?.required&&(form.controls.maritalStatus.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
 
-    <md-select class="input-block" placeholder="Location" [(ngModel)]="selectedEmployee.location.locationId" name="locationId" id="locationId" formControlName="locationId">
-      <md-option *ngFor="let location of locations" [value]="location.locationId">
-        {{ location.locationName }}
-      </md-option>
-    </md-select>
+    <div class="form-input-container">
+      <md-select class="input-block" placeholder="Location" [(ngModel)]="selectedEmployee.location.locationId" name="locationId" id="locationId" formControlName="locationId">
+        <md-option *ngFor="let location of locations" [value]="location.locationId">
+          {{ location.locationName }}
+        </md-option>
+      </md-select>
+      <p *ngIf="form.controls.locationId.errors?.required&&(form.controls.locationId.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input mdInput placeholder="Phone" [(ngModel)]="selectedEmployee.phoneNo" name="phoneNo" id="phoneNo" formControlName="phoneNo">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput placeholder="Phone" [(ngModel)]="selectedEmployee.phoneNo" name="phoneNo" id="phoneNo" formControlName="phoneNo">
+      </md-input-container>
+      <p *ngIf="form.controls.phoneNo.errors?.required&&(form.controls.phoneNo.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
   </div>
 
   <div class="input-container">
-    <md-input-container class="input-block">
-      <input mdInput placeholder="Sub Division" [(ngModel)]="selectedEmployee.subDivision" name="subDivision" id="subDivision" formControlName="subDivision">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput placeholder="Sub Division" [(ngModel)]="selectedEmployee.subDivision" name="subDivision" id="subDivision" formControlName="subDivision">
+      </md-input-container>
+      <p *ngIf="!form.valid && submitted" class="error-message">P</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input mdInput placeholder="Status" [(ngModel)]="selectedEmployee.status" name="status" id="status" formControlName="status">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput placeholder="Status" [(ngModel)]="selectedEmployee.status" name="status" id="status" formControlName="status">
+      </md-input-container>
+      <p *ngIf="!form.valid && submitted" class="error-message">P</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input mdInput type="date" [(ngModel)]="selectedEmployee.suspendDate" placeholder="Suspend Date" name="suspendDate" id="suspendDate" formControlName="suspendDate">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput type="date" [(ngModel)]="selectedEmployee.suspendDate" placeholder="Suspend Date" name="suspendDate" id="suspendDate" formControlName="suspendDate">
+      </md-input-container>
+      <p *ngIf="!form.valid && submitted" class="error-message">P</p>
+      <p *ngIf="form.controls.suspendDate.errors?.validateSuspendDate" class="error-message">Suspension date is before the hire date.</p>
+      <p *ngIf="form.controls.suspendDate.errors?.validateDate&&(form.controls.hireDate.touched||submitted)" class="error-message">Please input a valid date.</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input mdInput type="date" [(ngModel)]="selectedEmployee.hireDate" placeholder="Hire Date" name="hireDate" id="hireDate" formControlName="hireDate">
-    </md-input-container>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput type="date" [(ngModel)]="selectedEmployee.hireDate" placeholder="Hire Date" name="hireDate" id="hireDate" formControlName="hireDate">
+      </md-input-container>
+      <p *ngIf="form.controls.hireDate.errors?.required&&(form.controls.hireDate.touched||submitted)" class="error-message">This field is required.</p>
+      <p *ngIf="form.controls.hireDate.errors?.validateDate&&(form.controls.hireDate.touched||submitted)" class="error-message">Please input a valid date.</p>
+    </div>
 
-    <md-select class="input-block" placeholder="Division" (change)="getGrades($event.value)" [(ngModel)]="selectedEmployee.division.divisionId" name="divisionId" id="divisionId" formControlName="divisionId">
-      <md-option *ngFor="let division of divisions" [value]="division.divisionId">
-        {{ division.divisionName }}
-      </md-option>
-    </md-select>
+    <div class="form-input-container">
+      <md-select class="input-block" placeholder="Division" (change)="getGrades($event.value)" [(ngModel)]="selectedEmployee.division.divisionId" name="divisionId" id="divisionId" formControlName="divisionId">
+        <md-option *ngFor="let division of divisions" [value]="division.divisionId">
+          {{ division.divisionName }}
+        </md-option>
+      </md-select>
+      <p *ngIf="form.controls.divisionId.errors?.required&&(form.controls.divisionId.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
 
-    <md-select class="input-block" placeholder="Grade" [(ngModel)]="selectedEmployee.grade.gradeId" name="gradeId" id="gradeId" formControlName="gradeId">
-      <md-option *ngFor="let grade of grades" [value]="grade.gradeId">
-        {{ grade.gradeCode + ' - ' + grade.gradeName }}
-      </md-option>
-    </md-select>
+    <div class="form-input-container">
+      <md-select class="input-block" placeholder="Grade" [(ngModel)]="selectedEmployee.grade.gradeId" name="gradeId" id="gradeId" formControlName="gradeId">
+        <md-option *ngFor="let grade of grades" [value]="grade.gradeId">
+          {{ grade.gradeCode + ' - ' + grade.gradeName }}
+        </md-option>
+      </md-select>
+      <p *ngIf="form.controls.gradeId.errors?.required&&(form.controls.gradeId.touched||submitted)" class="error-message">This field is required.</p>
+    </div>
 
-    <md-input-container class="input-block">
-      <input mdInput type="email" placeholder="Email" [(ngModel)]="selectedEmployee.email" name="email" id="email" formControlName="email">
-    </md-input-container>
-    <p *ngIf="form.controls.email.errors?.email">error message</p>
+    <div class="form-input-container">
+      <md-input-container class="input-block">
+        <input mdInput type="email" placeholder="Email" [(ngModel)]="selectedEmployee.email" name="email" id="email" formControlName="email">
+      </md-input-container>
+      <p *ngIf="form.controls.email.errors?.required&&(form.controls.email.touched||submitted)" class="error-message">This field is required.</p>
+      <p *ngIf="form.controls.email.errors?.email&&(form.controls.email.touched||submitted)" class="error-message">Invalid Email!</p>
+    </div>
 
     <label id="trigger-photo-upload" for="photo" hidden></label>
     <input type="file" hidden name="photo" id="photo" (change)="setFile($event)" accept="image/*" formControlName="photo">
@@ -79,9 +131,10 @@
   <div class="input-container picture-input-container">
     <img class="profile-picture" [src]="employeePicture" width="70%" (click)="triggerUploadWindow()">
   </div>
+</div>
 
   <div class="input-container submit-button-container">
     <a (click)="sendCancel()" color="light" md-raised-button>Cancel</a>
-    <button type="submit" [disabled]="!form.valid" color="accent" md-raised-button>Submit</button>
+    <button type="submit" color="accent" md-raised-button>Submit</button>
   </div>
 </form>

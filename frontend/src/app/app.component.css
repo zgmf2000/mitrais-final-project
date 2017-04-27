@@ -101,17 +101,16 @@ section>.utility-container
 section>.content-container
 {
     padding: 10px;
-    height: calc(100vh - 108px);
+    height: calc(100vh - 105px);
     box-sizing: border-box;
     overflow-y: scroll;
 }
 
 section.content>.content-container
 {
-    overflow-y: scroll;
+    overflow:hidden;
     position: relative;
-    padding-left: 0;
-    padding-bottom: 0;
+    padding: 0;
 }
 
 .sidebar

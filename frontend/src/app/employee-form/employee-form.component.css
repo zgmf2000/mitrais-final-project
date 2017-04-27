@@ -27,11 +27,34 @@
     width: calc(100% + 10px);
     text-align: right;
     background-color: #3949ab;
-    padding: 10px 15px;
+    padding: 10px 20px;
 }
+
 
 .input-block
 {
     display: block;
+}
+
+.form-input-container
+{
     margin: 50px auto;
+}
+
+.form-input-container .error-message
+{
+    color: red;
+    margin-top: 1em;
+    font-size: 10pt;
+}
+
+.outer-container
+{
+    overflow-y: scroll;
+    height: calc(100vh - 161px);
+}
+
+/deep/ .md2-datepicker-button
+{
+    display: none;
 }
