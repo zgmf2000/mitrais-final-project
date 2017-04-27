@@ -1,5 +1,5 @@
-import {Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, Validator } from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { EmployeeService } from '../employee.service';
 import { LocationService } from '../location.service';
@@ -7,8 +7,9 @@ import { GradeService } from '../grade.service';
 import { DivisionService } from '../division.service';
 import { RefreshService } from '../refresh-service.service';
 import { UtilityToken } from '../providers';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { CustomValidators } from 'ng2-validation';
 
 
 @Component({
@@ -22,7 +23,6 @@ export class EmployeeFormComponent implements OnInit {
   divisions;
   grades;
   employeeId;
-  file;
   employeePicture = '../../../assets/user-icon.svg';
   selectedEmployee = {
     employeeId  : null,
@@ -124,7 +124,7 @@ export class EmployeeFormComponent implements OnInit {
       status        : this.formBuilder.control(''),
       locationId    : this.formBuilder.control(''),
       phoneNo       : this.formBuilder.control(''),
-      email         : this.formBuilder.control(''),
+      email         : this.formBuilder.control('', [Validators.required, CustomValidators.email]),
       dob           : this.formBuilder.control(''),
       suspendDate   : this.formBuilder.control(''),
       hireDate      : this.formBuilder.control(''),

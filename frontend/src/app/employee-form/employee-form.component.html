@@ -70,6 +70,7 @@
     <md-input-container class="input-block">
       <input mdInput type="email" placeholder="Email" [(ngModel)]="selectedEmployee.email" name="email" id="email" formControlName="email">
     </md-input-container>
+    <p *ngIf="form.controls.email.errors?.email">error message</p>
 
     <label id="trigger-photo-upload" for="photo" hidden></label>
     <input type="file" hidden name="photo" id="photo" (change)="setFile($event)" accept="image/*" formControlName="photo">
@@ -81,6 +82,6 @@
 
   <div class="input-container submit-button-container">
     <a (click)="sendCancel()" color="light" md-raised-button>Cancel</a>
-    <button type="submit" color="accent" md-raised-button>Submit</button>
+    <button type="submit" [disabled]="!form.valid" color="accent" md-raised-button>Submit</button>
   </div>
 </form>
