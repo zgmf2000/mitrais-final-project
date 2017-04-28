@@ -19,10 +19,6 @@ section>.utility-container
 .utility-search-component
 {
     width: 60%;
-}
-
-.utility-search-component
-{
     float: left;
 }
 
@@ -33,7 +29,7 @@ section>.utility-container
 
 .utility-misc-component.nav-right *
 {
-    margin: 0 1px;
+    margin: 0 4px;
 }
 
 .utility-misc-component>.utility-icon
@@ -134,7 +130,6 @@ section.content>.content-container
     position: absolute;
     top: 50%;
     right: 10px;
-    transform: translate(0,-50%);
 }
 
 .large
@@ -162,4 +157,79 @@ section.content>.content-container
 /deep/ .mat-chip-list
 {
     float: right;
+}
+
+@media only screen and (max-width: 1024px) {
+    .content
+    {
+        width:100%;
+    }
+
+    .sidebar
+    {
+        width: 40%;
+        left: -40%;
+        position: fixed;
+        z-index: 3;
+        background-color: white;
+        height: calc(100vh - 56px);
+
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+
+    .sidebar.shown
+    {
+        left: 0;
+    }
+
+    .utility-misc-component.nav-right *
+    {
+        margin: 0 2px;
+    }
+
+    .utility-search-component
+    {
+        width: 45%;
+    }
+
+    .utility-search-component .utility-icon
+    {
+        display: none;
+    }
+
+    .utility-misc-component
+    {
+        width: 55%;
+    }
+
+    .utility-icon
+    {
+        height: 100%;
+        width: 20%;
+    }
+
+    .input-group>input
+    {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+    .sidebar
+    {
+        width: 70%;
+        left: -70%;
+    }
+
+    .toggle-add-employee
+    {
+        position: fixed;
+        top: 110px;
+        right: 10px;
+    }
 }

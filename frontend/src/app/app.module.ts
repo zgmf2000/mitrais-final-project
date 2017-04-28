@@ -19,11 +19,11 @@ import { DatePipe } from '@angular/common';
 
 import { AppComponent, DeleteDialogComponent, FilterDialogComponent } from './app.component';
 import { UtilityList, UtilityToken } from './providers';
-import { EmployeeService } from './employee.service';
-import { LocationService } from './location.service';
-import { DivisionService } from './division.service';
-import { RefreshService } from './refresh-service.service';
-import { GradeService } from './grade.service';
+import { EmployeeService } from './service/employee.service';
+import { LocationService } from './service/location.service';
+import { DivisionService } from './service/division.service';
+import { SharedService } from './service/shared-service.service';
+import { GradeService } from './service/grade.service';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { routing } from './app.routing';
@@ -65,7 +65,7 @@ import { EmployeeContainerPlaceholderComponent } from './employee-container-plac
       LocationService,
       GradeService,
       DivisionService,
-      RefreshService,
+      SharedService,
       DatePipe,
       { provide: UtilityToken, useValue: UtilityList }
   ],

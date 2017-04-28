@@ -10,7 +10,6 @@ export class EmployeeCardComponent {
   @Input() employee;
   @Input() selectedId;
   photoPath = "../../../assets";
-  @Output() cardClicked = new EventEmitter;
 
   getPictureLink()
   {

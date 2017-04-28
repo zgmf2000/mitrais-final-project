@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class RefreshService {
+export class SharedService {
     private notify = new Subject<any>();
     /**
      * Observable string streams

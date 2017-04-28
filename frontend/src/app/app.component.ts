@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { EmployeeService } from './employee.service';
-import { LocationService } from './location.service';
-import { RefreshService } from './refresh-service.service';
+import { EmployeeService } from './service/employee.service';
+import { LocationService } from './service/location.service';
+import { SharedService } from './service/shared-service.service';
 import { Router } from '@angular/router';
 import { MdDialogRef, MdDialog, MdSnackBar, MdDialogConfig } from '@angular/material';
 import { UtilityToken } from './providers';
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   constructor(
       private employeeService: EmployeeService,
       private router: Router,
-      private refreshService: RefreshService,
+      private sharedService: SharedService,
       public snackBar: MdSnackBar,
       public dialog: MdDialog
   ) 
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.getEmployees();
 
-    this.subscription = this.refreshService.notifyObservable$.subscribe((res) => {
+    this.subscription = this.sharedService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'refresh') 
       {
         this.initiateFilter(false, false);
@@ -53,6 +53,14 @@ export class AppComponent implements OnInit {
         }
       }
     });
+  }
+
+  hideSidebar()
+  {
+    const sidebar = document.getElementsByClassName("sidebar")[0];
+
+    if (sidebar.classList.contains('shown'))
+      sidebar.classList.toggle('shown');
   }
 
   resetSelection(routeHome:boolean = true)
@@ -197,6 +205,7 @@ export class AppComponent implements OnInit {
     this.deleteTarget = undefined;
     this.resetSelection();
     this.router.navigate(['add']);
+    this.hideSidebar();
   }
 
   onCardClick(employee)
@@ -205,6 +214,7 @@ export class AppComponent implements OnInit {
     this.selectedEmployee = employee;
     this.deleteTarget = employeeId;
     this.router.navigate(['edit', employeeId]);
+    this.hideSidebar();
   }
 
   openDeleteDialog()

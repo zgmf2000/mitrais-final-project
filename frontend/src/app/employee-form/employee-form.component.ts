@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
-import { EmployeeService } from '../employee.service';
-import { LocationService } from '../location.service';
-import { GradeService } from '../grade.service';
-import { DivisionService } from '../division.service';
-import { RefreshService } from '../refresh-service.service';
+import { EmployeeService } from '../service/employee.service';
+import { LocationService } from '../service/location.service';
+import { GradeService } from '../service/grade.service';
+import { DivisionService } from '../service/division.service';
+import { SharedService } from '../service/shared-service.service';
 import { UtilityToken } from '../providers';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -59,7 +59,7 @@ export class EmployeeFormComponent implements OnInit {
       private employeeService: EmployeeService,
       private locationService: LocationService,
       private divisionService: DivisionService,
-      private refreshService: RefreshService,
+      private sharedService: SharedService,
       private gradeService: GradeService,
       private formBuilder: FormBuilder,
       private activatedRoute: ActivatedRoute,
@@ -96,7 +96,7 @@ export class EmployeeFormComponent implements OnInit {
       this.selectedEmployee.suspendDate = (this.selectedEmployee.suspendDate) ? this.convertDate(this.selectedEmployee.suspendDate) : null;
       this.getGrades(employee.division.divisionId);
 
-      this.refreshService.notifyOther({ option: 'highlight', value: employee });
+      this.sharedService.notifyOther({ option: 'highlight', value: employee });
     });
   }
 
@@ -219,7 +219,8 @@ export class EmployeeFormComponent implements OnInit {
       this.setEmployeePicture(event.target.result);
     };
 
-    reader.readAsDataURL(event.target.files[0]);
+    if (event.target.files[0])
+      reader.readAsDataURL(event.target.files[0]);
   }
 
   onSubmit(submittedFormData)
@@ -252,7 +253,7 @@ export class EmployeeFormComponent implements OnInit {
     if (this.router.url.indexOf('edit') >= 0)
     {
       this.employeeService.edit(formData, this.employeeId).subscribe((response) => {
-        this.refreshService.notifyOther({ option: 'refresh', value: 'from form' });
+        this.sharedService.notifyOther({ option: 'refresh', value: 'from form' });
         this.scrollFormToTop();
         this.snackBar.open(`Employee ${response.firstName} ${response.lastName} edited!`, 'OK', {
           duration: 1500
@@ -262,7 +263,7 @@ export class EmployeeFormComponent implements OnInit {
     else
     {
       this.employeeService.add(formData).subscribe((response) => {
-        this.refreshService.notifyOther({ option: 'refresh', value: 'from form' });
+        this.sharedService.notifyOther({ option: 'refresh', value: 'from form' });
         this.scrollFormToTop();
         this.snackBar.open('Employee successfully created!', 'OK', {
           duration: 1500

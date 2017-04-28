@@ -17,6 +17,12 @@
     padding: 0;
 }
 
+.input-container.picture-input-container.mobile
+{
+    width: 100%;
+    display: none;
+}
+
 .input-container.picture-input-container > .profile-picture
 {
     border-radius:100px;
@@ -62,4 +68,22 @@
 {
     overflow-y: scroll;
     height: calc(100vh - 161px);
+}
+
+@media only screen and (max-width: 600px)
+{
+    .input-container
+    {
+        width: 100%;
+    }
+
+    .input-container.picture-input-container.desktop-tablet
+    {
+        display: none;
+    }
+
+    .input-container.picture-input-container.mobile
+    {
+        display: block;
+    }
 }

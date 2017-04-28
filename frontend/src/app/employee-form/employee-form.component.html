@@ -1,8 +1,11 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" enctype="multipart/form-data">
 
 <div class="outer-container">
+  <div class="input-container picture-input-container mobile">
+    <img class="profile-picture" [src]="employeePicture" width="50%" (click)="triggerUploadWindow()">
+  </div>
+
   <div class="input-container">
-    
     <div class="form-input-container">
       <md-input-container class="input-block">
         <input mdInput [(ngModel)]="selectedEmployee.firstName" placeholder="First Name" name="firstName" id="firstName" formControlName="firstName">
@@ -154,7 +157,7 @@
     <input type="file" hidden name="photo" id="photo" (change)="setFile($event)" accept="image/*" formControlName="photo">
   </div>
 
-  <div class="input-container picture-input-container">
+  <div class="input-container picture-input-container desktop-tablet">
     <img class="profile-picture" [src]="employeePicture" width="70%" (click)="triggerUploadWindow()">
   </div>
 </div>
