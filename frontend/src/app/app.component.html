@@ -10,7 +10,7 @@
             <md-chip-list>
                 <md-basic-chip ngClass="utility-chip">{{ employeeList.length }}</md-basic-chip>
             </md-chip-list>
-            <md-icon [ngClass]="{'utility-icon':true, 'active':false}" (click)="openFilterDialog()">filter_list</md-icon>
+            <md-icon [ngClass]="{'utility-icon':true, 'active':activeFilter.gender!='All'||activeFilter.location!=0}" (click)="openFilterDialog()">filter_list</md-icon>
             <md-icon [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()">sort</md-icon>
             <md-icon ngClass="utility-icon" *ngIf="deleteTarget" (click)="openDeleteDialog()">delete</md-icon>
         </div>

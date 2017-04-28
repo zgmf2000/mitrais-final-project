@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 import * as moment from 'moment';
+import 'date-input-polyfill';
 
 @Component({
   selector: 'app-employee-form',

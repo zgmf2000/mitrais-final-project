@@ -3,7 +3,7 @@ import { EmployeeService } from './employee.service';
 import { LocationService } from './location.service';
 import { RefreshService } from './refresh-service.service';
 import { Router } from '@angular/router';
-import { MdDialogRef, MdDialog, MdSnackBar } from '@angular/material';
+import { MdDialogRef, MdDialog, MdSnackBar, MdDialogConfig } from '@angular/material';
 import { UtilityToken } from './providers';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,6 +19,11 @@ export class AppComponent implements OnInit {
   employeeList = [];
   employeeOriginalList;
   sortCode = 0;
+  activeFilter = {
+    location        : '0',
+    location_string : 'Anywhere',
+    gender          : 'All' 
+  };
   private subscription: Subscription;
 
   constructor(
@@ -36,7 +41,7 @@ export class AppComponent implements OnInit {
     this.subscription = this.refreshService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'refresh') 
       {
-        this.getEmployees();
+        this.initiateFilter();
         this.sortEmployees();
       }
       else if (res.hasOwnProperty('option') && res.option === 'highlight')
@@ -166,14 +171,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  initiateFilter(filterQuery)
+  initiateFilter()
   {
     this.resetSelection();
-    this.employeeService.getEmployeesFiltered(filterQuery).subscribe(employees => {
+    this.employeeService.getEmployeesFiltered(this.activeFilter).subscribe(employees => {
       this.employeeList = employees;
       this.deleteTarget = undefined;
       this.router.navigate(["/"]);
-      this.snackBar.open(`Filtered ${filterQuery.gender} employees located in ${filterQuery.location_string}`,'OK',{
+      this.snackBar.open(`Filtered ${this.activeFilter.gender} employees located in ${this.activeFilter.location_string}`,'OK',{
         duration: 1500
       });
     });
@@ -205,11 +210,17 @@ export class AppComponent implements OnInit {
 
   openFilterDialog()
   {
-    let dialogRef = this.dialog.open(FilterDialogComponent);
+    let config = new MdDialogConfig();
+    let dialogRef = this.dialog.open(FilterDialogComponent, config);
+
+    dialogRef.componentInstance.gender_filter = this.activeFilter.gender;
+    dialogRef.componentInstance.location_filter = this.activeFilter.location;
+
     dialogRef.afterClosed().subscribe(result => {
       if (result)
       {
-        this.initiateFilter(result);
+        this.activeFilter = result;
+        this.initiateFilter();
       }
     });
   }
@@ -230,9 +241,9 @@ export class DeleteDialogComponent {
 })
 export class FilterDialogComponent{
 
-  gender_filter = 'All';
-  location_filter = '0';
-  location_string = 'Anywhere';
+  gender_filter;
+  location_filter;
+  location_string;
   locations;
 
   constructor(
