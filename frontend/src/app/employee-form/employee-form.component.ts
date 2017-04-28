@@ -22,14 +22,14 @@ export class EmployeeFormComponent implements OnInit {
   locations;
   divisions;
   grades;
-  submitted: boolean = false;
+  submitted = false;
   employeeId;
   employeePicture = '../../../assets/user-icon.svg';
   selectedEmployee = {
     employeeId  : null,
     firstName : null,
     lastName : null,
-    gender: "Male",
+    gender: null,
     photo: null,
     status: null,
     phoneNo: null,
@@ -92,28 +92,22 @@ export class EmployeeFormComponent implements OnInit {
       this.setEmployeePicture(undefined);
       this.selectedEmployee.hireDate = this.convertDate(this.selectedEmployee.hireDate);
       this.selectedEmployee.dob = this.convertDate(this.selectedEmployee.dob);
-      this.selectedEmployee.suspendDate = (this.selectedEmployee.suspendDate)?this.convertDate(this.selectedEmployee.suspendDate):null;
+      this.selectedEmployee.suspendDate = (this.selectedEmployee.suspendDate) ? this.convertDate(this.selectedEmployee.suspendDate) : null;
       this.getGrades(employee.division.divisionId);
-      
+
       this.refreshService.notifyOther({ option: 'highlight', value: employee });
     });
   }
 
   scrollFormToTop()
   {
-        const formContainer : any = document.getElementsByClassName('content')[0].childNodes[3];
+        const formContainer : any = document.getElementsByClassName('outer-container')[0];
         formContainer.scrollTop = 0;
   }
 
   sendCancel()
   {
-    if (this.router.url.indexOf('edit') >= 0)
-    {
-      this.initializeForm();
-      this.scrollFormToTop();
-    }
-    else
-      this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 
   convertDate(milliseconds)
@@ -123,9 +117,7 @@ export class EmployeeFormComponent implements OnInit {
 
   validateDate(date)
   {
-    const dateValue = moment(date.value);
-
-    if (moment(dateValue).isValid())
+    if (moment(date.value, ['MM/DD/YYYY', 'M/D/YYYY', 'YYYY-MM-DD'], true).isValid() || !date.value)
       return null;
     else
     {
@@ -154,7 +146,7 @@ export class EmployeeFormComponent implements OnInit {
 
   validateSuspendDate(suspendDate)
   {
-    const hiringDate = (<HTMLInputElement>document.getElementById("hireDate")).value;
+    const hiringDate = (<HTMLInputElement>document.getElementById('hireDate')).value;
 
     if (!hiringDate)
       return null;
@@ -219,13 +211,13 @@ export class EmployeeFormComponent implements OnInit {
 
   setFile(event)
   {
-    var reader = new FileReader();
-    
-    reader.onload = (event: any) => 
+    const reader = new FileReader();
+
+    reader.onload = (event: any) =>
     {
       this.setEmployeePicture(event.target.result);
-    }
-    
+    };
+
     reader.readAsDataURL(event.target.files[0]);
   }
 
@@ -236,7 +228,7 @@ export class EmployeeFormComponent implements OnInit {
     if (!this.form.valid)
       return false;
 
-    let formData : any = new FormData(document.getElementsByTagName("form")[0]);
+    const formData : any = new FormData(document.getElementsByTagName('form')[0]);
 
     //Add data from select options
     formData.append('gender', submittedFormData.gender);

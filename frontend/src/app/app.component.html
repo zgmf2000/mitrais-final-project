@@ -3,15 +3,15 @@
         <div class="utility-search-component nav-left">
             <div class="input-group">
                 <md-icon ngClass="utility-icon">search</md-icon>
-                <input type="text" (keyup)="initiateSearch($event)" class="input-mock-material" id="search" placeholder="search">
+                <input type="text" (keyup)="initiateSearch($event)" class="input-mock-material" id="search" placeholder="Search">
             </div>
         </div>
         <div class="utility-misc-component nav-right">
             <md-chip-list>
                 <md-basic-chip ngClass="utility-chip">{{ employeeList.length }}</md-basic-chip>
             </md-chip-list>
-            <md-icon ngClass="utility-icon" (click)="openFilterDialog()">filter_list</md-icon>
-            <md-icon ngClass="utility-icon" (click)="initiateSort()">sort</md-icon>
+            <md-icon [ngClass]="{'utility-icon':true, 'active':false}" (click)="openFilterDialog()">filter_list</md-icon>
+            <md-icon [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()">sort</md-icon>
             <md-icon ngClass="utility-icon" *ngIf="deleteTarget" (click)="openDeleteDialog()">delete</md-icon>
         </div>
     </div>

@@ -18,7 +18,7 @@ i.material-icons
     font-size: 32px;
     color: white;
     margin: auto 5px;
-    cursor:pointer;
+    cursor: default;
 }
 
 #profile-info

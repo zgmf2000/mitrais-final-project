@@ -50,6 +50,11 @@ section>.utility-container
     cursor: pointer;
 }
 
+.utility-icon.active
+{
+    color: darkslategray;
+}
+
 .input-group
 {
     width: 100%;
@@ -144,6 +149,7 @@ section.content>.content-container
     background-color: lightgray;
     padding: 5px;
     border-radius: 100px;
+    cursor: default;
 }
 
 /deep/ .mat-tab-label

@@ -41,10 +41,20 @@
     margin: 50px auto;
 }
 
+.input-message-container
+{
+    height: 15px;
+}
+
+.input-message-container.select-message
+{
+    margin-top: 1em;
+}
+
 .form-input-container .error-message
 {
     color: red;
-    margin-top: 1em;
+    margin:0;
     font-size: 10pt;
 }
 
@@ -52,9 +62,4 @@
 {
     overflow-y: scroll;
     height: calc(100vh - 161px);
-}
-
-/deep/ .md2-datepicker-button
-{
-    display: none;
 }
