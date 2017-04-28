@@ -52,7 +52,7 @@ section>.utility-container
 
 .utility-icon.active
 {
-    color: #5DFF19;
+    color: #ff4081;;
 }
 
 .input-group
@@ -106,6 +106,7 @@ section>.utility-container
 section>.content-container
 {
     padding: 10px;
+    width: 100%;
     height: calc(100vh - 105px);
     box-sizing: border-box;
     overflow-y: scroll;

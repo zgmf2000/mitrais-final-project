@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
     this.subscription = this.refreshService.notifyObservable$.subscribe((res) => {
       if (res.hasOwnProperty('option') && res.option === 'refresh') 
       {
-        this.initiateFilter();
+        this.initiateFilter(false, false);
         this.sortEmployees();
       }
       else if (res.hasOwnProperty('option') && res.option === 'highlight')
@@ -55,10 +55,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  resetSelection()
+  resetSelection(routeHome:boolean = true)
   {
     this.selectedEmployee = undefined;
-    this.router.navigate(['/']);
+
+    if (routeHome)
+      this.router.navigate(['/']);
   }
 
   getEmployees()
@@ -171,16 +173,22 @@ export class AppComponent implements OnInit {
     }
   }
 
-  initiateFilter()
+  initiateFilter(snackBar:boolean = true, routeHome:boolean = true)
   {
-    this.resetSelection();
+    this.resetSelection(false);
     this.employeeService.getEmployeesFiltered(this.activeFilter).subscribe(employees => {
       this.employeeList = employees;
       this.deleteTarget = undefined;
-      this.router.navigate(["/"]);
-      this.snackBar.open(`Filtered ${this.activeFilter.gender} employees located in ${this.activeFilter.location_string}`,'OK',{
-        duration: 1500
-      });
+
+      if (routeHome)
+        this.router.navigate(["/"]);
+
+      if (snackBar)
+      {
+        this.snackBar.open(`Filtered ${this.activeFilter.gender} employees located in ${this.activeFilter.location_string}`,'OK',{
+          duration: 1500
+        });
+      };
     });
   }
 
@@ -201,7 +209,11 @@ export class AppComponent implements OnInit {
 
   openDeleteDialog()
   {
-    let dialogRef = this.dialog.open(DeleteDialogComponent);
+    let config = new MdDialogConfig();
+    let dialogRef = this.dialog.open(DeleteDialogComponent, config);
+
+    dialogRef.componentInstance.employeeName = `${this.selectedEmployee.firstName} ${this.selectedEmployee.lastName}`;
+
     dialogRef.afterClosed().subscribe(result => {
       if (result)
         this.deleteEmployee();
@@ -229,15 +241,17 @@ export class AppComponent implements OnInit {
 
 @Component({
   selector: 'app-delete-dialog',
-  templateUrl: './delete-dialog.component.html',
+  templateUrl: './dialog/delete-dialog.component.html',
+  styleUrls: ['./dialog/dialog.css']
 })
 export class DeleteDialogComponent {
   constructor(public dialogRef: MdDialogRef<DeleteDialogComponent>) {}
+  employeeName;
 }
 
 @Component({
   selector: 'app-filter-dialog',
-  templateUrl: './filter-dialog.component.html',
+  templateUrl: './dialog/filter-dialog.component.html',
 })
 export class FilterDialogComponent{
 

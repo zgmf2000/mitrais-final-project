@@ -12,7 +12,8 @@ import {
     MdTabsModule,
     MdChipsModule,
     MdDialogModule,
-    MdSnackBarModule
+    MdSnackBarModule,
+    MdMenuModule
 } from '@angular/material';
 import { DatePipe } from '@angular/common';
 
@@ -44,7 +45,8 @@ import { EmployeeContainerPlaceholderComponent } from './employee-container-plac
       MdTabsModule,
       MdChipsModule,
       MdDialogModule,
-      MdSnackBarModule
+      MdSnackBarModule,
+      MdMenuModule
   ],
   declarations: [
       AppComponent,

@@ -1,9 +1,6 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.location;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 public interface LocationRepository extends PagingAndSortingRepository<Location,Long>
 {

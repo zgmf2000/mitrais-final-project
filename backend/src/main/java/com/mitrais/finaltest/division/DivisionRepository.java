@@ -1,4 +1,4 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.division;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 

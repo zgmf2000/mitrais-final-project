@@ -1,14 +1,17 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.employee;
 
+import com.mitrais.finaltest.grade.Grade;
+import com.mitrais.finaltest.grade.GradeRepository;
+import com.mitrais.finaltest.location.Location;
+import com.mitrais.finaltest.location.LocationRepository;
+import com.mitrais.finaltest.division.Division;
+import com.mitrais.finaltest.division.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.support.NullValue;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
-import javax.validation.constraints.Null;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -59,7 +62,10 @@ public class EmployeeController {
 
     @RequestMapping(value = "getSingleEmployee/{employeeId}", method = RequestMethod.GET)
     ResponseEntity<Employee> getSingleEmployee(@PathVariable long employeeId) {
-        return new ResponseEntity<>(employeeRepository.findOne(employeeId), HttpStatus.OK);
+        if (!employeeRepository.exists(employeeId))
+            return new ResponseEntity<>(new Employee(), HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(employeeRepository.findOne(employeeId), HttpStatus.OK);
     }
 
     @RequestMapping(value="modifyEmployee", method = RequestMethod.POST)

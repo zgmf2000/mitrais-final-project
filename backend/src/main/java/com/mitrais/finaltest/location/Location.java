@@ -1,11 +1,11 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.location;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mitrais.finaltest.employee.Employee;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Bintoro on 4/19/2017.

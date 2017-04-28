@@ -1,4 +1,4 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.employee;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;

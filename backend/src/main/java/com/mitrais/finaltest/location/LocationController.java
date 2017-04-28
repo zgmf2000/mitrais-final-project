@@ -1,4 +1,4 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.location;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

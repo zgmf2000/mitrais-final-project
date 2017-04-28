@@ -1,4 +1,8 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.employee;
+
+import com.mitrais.finaltest.grade.Grade;
+import com.mitrais.finaltest.location.Location;
+import com.mitrais.finaltest.division.Division;
 
 import javax.persistence.*;
 import java.io.Serializable;

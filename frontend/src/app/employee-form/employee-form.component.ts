@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { EmployeeService } from '../employee.service';
 import { LocationService } from '../location.service';
@@ -226,8 +226,16 @@ export class EmployeeFormComponent implements OnInit {
   {
     this.submitted = true;
 
+    //Required to trigger invalid style on md-select elements.
     if (!this.form.valid)
+    {
+      this.form.get('gender').markAsTouched();
+      this.form.get('locationId').markAsTouched();
+      this.form.get('gradeId').markAsTouched();
+      this.form.get('divisionId').markAsTouched();
+      this.form.get('maritalStatus').markAsTouched();
       return false;
+    }
 
     const formData : any = new FormData(document.getElementsByTagName('form')[0]);
 
@@ -255,6 +263,7 @@ export class EmployeeFormComponent implements OnInit {
     {
       this.employeeService.add(formData).subscribe((response) => {
         this.refreshService.notifyOther({ option: 'refresh', value: 'from form' });
+        this.scrollFormToTop();
         this.snackBar.open('Employee successfully created!', 'OK', {
           duration: 1500
         });

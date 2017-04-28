@@ -1,6 +1,8 @@
-package com.mitrais.finaltest;
+package com.mitrais.finaltest.division;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mitrais.finaltest.employee.Employee;
+import com.mitrais.finaltest.grade.Grade;
 
 import javax.persistence.*;
 import java.util.ArrayList;

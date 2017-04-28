@@ -1,0 +1,8 @@
+<h1 md-dialog-title>Confirm Delete</h1>
+<div md-dialog-content>
+    <p>Are you sure you want to delete <b>{{ employeeName }}</b>?</p>
+</div>
+<div md-dialog-actions>
+    <button md-raised-button color="primary" (click)="dialogRef.close(true)">Yes</button>
+    <button md-raised-button color="warn" (click)="dialogRef.close(false)">No</button>
+</div>
