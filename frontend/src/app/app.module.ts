@@ -28,6 +28,7 @@ import { EmployeeCardComponent } from './employee-card/employee-card.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { routing } from './app.routing';
 import { EmployeeContainerPlaceholderComponent } from './employee-container-placeholder/employee-container-placeholder.component';
+import { EmployeeNotFoundComponent } from './employee-not-found/employee-not-found.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { EmployeeContainerPlaceholderComponent } from './employee-container-plac
       FilterDialogComponent,
       EmployeeCardComponent,
       EmployeeFormComponent,
-      EmployeeContainerPlaceholderComponent
+      EmployeeContainerPlaceholderComponent,
+      EmployeeNotFoundComponent
   ],
   entryComponents: [
       DeleteDialogComponent,

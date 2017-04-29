@@ -26,6 +26,7 @@
 .input-container.picture-input-container > .profile-picture
 {
     border-radius:100px;
+    margin-bottom: 10px;
 }
 
 .input-container.submit-button-container
@@ -57,7 +58,7 @@
     margin-top: 1em;
 }
 
-.form-input-container .error-message
+.error-message
 {
     color: red;
     margin:0;

@@ -23,6 +23,8 @@ export class EmployeeFormComponent implements OnInit {
   locations;
   divisions;
   grades;
+  forbiddenFile;
+  errorMessages;
   submitted = false;
   employeeId;
   employeePicture = '../../../assets/user-icon.svg';
@@ -95,8 +97,35 @@ export class EmployeeFormComponent implements OnInit {
       this.selectedEmployee.dob = this.convertDate(this.selectedEmployee.dob);
       this.selectedEmployee.suspendDate = (this.selectedEmployee.suspendDate) ? this.convertDate(this.selectedEmployee.suspendDate) : null;
       this.getGrades(employee.division.divisionId);
+    
+      let fileInput = <HTMLInputElement>document.getElementById('photo');
+      fileInput.value = '';
 
       this.sharedService.notifyOther({ option: 'highlight', value: employee });
+    },
+    error =>  {
+      this.router.navigate(['404']);
+    })
+  }
+
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      firstName     : this.formBuilder.control('', [Validators.required]),
+      lastName      : this.formBuilder.control('', [Validators.required]),
+      gender        : this.formBuilder.control('', [Validators.required]),
+      photo         : this.formBuilder.control(''),
+      status        : this.formBuilder.control(''),
+      locationId    : this.formBuilder.control('', [Validators.required]),
+      phoneNo       : this.formBuilder.control('', [Validators.required]),
+      email         : this.formBuilder.control('', [Validators.required, Validators.email]),
+      dob           : this.formBuilder.control('', [Validators.required, this.validateDate, this.validateBirthDate]),
+      suspendDate   : this.formBuilder.control('', [this.validateDate, this.validateSuspendDate]),
+      hireDate      : this.formBuilder.control('', [Validators.required, this.validateDate]),
+      nationality   : this.formBuilder.control(''),
+      gradeId       : this.formBuilder.control('', [Validators.required]),
+      maritalStatus : this.formBuilder.control('', [Validators.required]),
+      divisionId    : this.formBuilder.control('', [Validators.required]),
+      subDivision   : this.formBuilder.control('')
     });
   }
 
@@ -109,6 +138,7 @@ export class EmployeeFormComponent implements OnInit {
   sendCancel()
   {
     this.router.navigate(['/']);
+    this.sharedService.notifyOther({ option: 'unhighlight', value: '' });
   }
 
   convertDate(milliseconds)
@@ -167,27 +197,6 @@ export class EmployeeFormComponent implements OnInit {
     return null;
   }
 
-  ngOnInit() {
-    this.form = this.formBuilder.group({
-      firstName     : this.formBuilder.control('', [Validators.required]),
-      lastName      : this.formBuilder.control('', [Validators.required]),
-      gender        : this.formBuilder.control('', [Validators.required]),
-      photo         : this.formBuilder.control(''),
-      status        : this.formBuilder.control(''),
-      locationId    : this.formBuilder.control('', [Validators.required]),
-      phoneNo       : this.formBuilder.control('', [Validators.required]),
-      email         : this.formBuilder.control('', [Validators.required, Validators.email]),
-      dob           : this.formBuilder.control('', [Validators.required, this.validateDate, this.validateBirthDate]),
-      suspendDate   : this.formBuilder.control('', [this.validateDate, this.validateSuspendDate]),
-      hireDate      : this.formBuilder.control('', [Validators.required, this.validateDate]),
-      nationality   : this.formBuilder.control(''),
-      gradeId       : this.formBuilder.control('', [Validators.required]),
-      maritalStatus : this.formBuilder.control('', [Validators.required]),
-      divisionId    : this.formBuilder.control('', [Validators.required]),
-      subDivision   : this.formBuilder.control('')
-    });
-  }
-
   getGrades(divisionId)
   {
     this.gradeService.get(divisionId).subscribe(grades => {
@@ -213,14 +222,26 @@ export class EmployeeFormComponent implements OnInit {
   setFile(event)
   {
     const reader = new FileReader();
+    const allowedTypes = ['image/jpeg', 'image/png'];
+    const file = event.target.files[0];
 
-    reader.onload = (event: any) =>
-    {
-      this.setEmployeePicture(event.target.result);
-    };
+    this.forbiddenFile = false;
 
     if (event.target.files[0])
-      reader.readAsDataURL(event.target.files[0]);
+    {
+      if (file.type === allowedTypes[0] || file.type === allowedTypes[1])
+      {
+        reader.onload = (event: any) =>
+        {
+          this.setEmployeePicture(event.target.result);
+        };
+          reader.readAsDataURL(event.target.files[0]);
+      }
+      else
+      {
+        this.forbiddenFile = true;
+      }
+    }
   }
 
   onSubmit(submittedFormData)

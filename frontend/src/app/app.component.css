@@ -18,13 +18,13 @@ section>.utility-container
 
 .utility-search-component
 {
-    width: 60%;
+    width: 50%;
     float: left;
 }
 
 .utility-misc-component
 {
-    width: 40%;
+    width: 50%;
 }
 
 .utility-misc-component.nav-right *
@@ -64,7 +64,7 @@ section>.utility-container
 .input-group>input
 {
     box-sizing: border-box;
-    width: 85%;
+    width: 80%;
     padding: 5px;
     color: white;
     background-color: rgba(0,0,0,0);
@@ -132,6 +132,13 @@ section.content>.content-container
     right: 10px;
 }
 
+.toggle-delete-employee
+{
+    display: none;
+    position: fixed;
+    background-color: red;
+}
+
 .large
 {
     height: 32px;
@@ -146,6 +153,21 @@ section.content>.content-container
     padding: 5px;
     border-radius: 100px;
     cursor: default;
+}
+
+#sidebar-cover
+{
+    display: none;
+    width: 100%;
+    height: calc(100vh - 56px);
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.5);
+}
+
+#sidebar-cover.shown
+{
+    display: block;
 }
 
 /deep/ .mat-tab-label
@@ -188,7 +210,7 @@ section.content>.content-container
 
     .utility-misc-component.nav-right *
     {
-        margin: 0 2px;
+        margin: 0 5px;
     }
 
     .utility-search-component
@@ -206,6 +228,11 @@ section.content>.content-container
         width: 55%;
     }
 
+    .delete-icon
+    {
+        display: none;
+    }
+
     .utility-icon
     {
         height: 100%;
@@ -215,6 +242,20 @@ section.content>.content-container
     .input-group>input
     {
         width: 100%;
+    }
+
+    .toggle-add-employee
+    {
+        position: fixed;
+        top: 50%;
+        right: 30px;
+    }
+
+    .toggle-delete-employee
+    {
+        display: block;
+        top: 57%;
+        right: 30px;
     }
 
 }
@@ -230,6 +271,13 @@ section.content>.content-container
     {
         position: fixed;
         top: 110px;
+        right: 10px;
+    }
+
+    .toggle-delete-employee
+    {
+        display: block;
+        top: 160px;
         right: 10px;
     }
 }

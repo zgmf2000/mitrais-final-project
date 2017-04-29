@@ -36,6 +36,8 @@ export class AppComponent implements OnInit {
   {}
 
   ngOnInit() {
+    document.getElementById("sidebar-cover").addEventListener("click", this.hideSidebar);
+
     this.getEmployees();
 
     this.subscription = this.sharedService.notifyObservable$.subscribe((res) => {
@@ -52,15 +54,23 @@ export class AppComponent implements OnInit {
           this.deleteTarget = this.selectedEmployee.employeeId;
         }
       }
+      else if (res.hasOwnProperty('option') && res.option === 'unhighlight')
+      {
+        this.selectedEmployee = undefined;
+      }
     });
   }
 
   hideSidebar()
   {
     const sidebar = document.getElementsByClassName("sidebar")[0];
+    const sidebarCover = document.getElementById('sidebar-cover');
 
-    if (sidebar.classList.contains('shown'))
+    if (sidebar.classList.contains('shown')) 
+    {
       sidebar.classList.toggle('shown');
+      sidebarCover.classList.toggle('shown');
+    }
   }
 
   resetSelection(routeHome:boolean = true)
@@ -171,6 +181,7 @@ export class AppComponent implements OnInit {
       this.resetSelection();
       this.employeeService.delete(this.deleteTarget).subscribe(
           () => {
+            this.deleteTarget = undefined;
             this.getEmployees();
             this.router.navigate(['/']);
             this.snackBar.open('Employee successfully deleted!', 'OK', {
@@ -185,6 +196,10 @@ export class AppComponent implements OnInit {
   {
     this.resetSelection(false);
     this.employeeService.getEmployeesFiltered(this.activeFilter).subscribe(employees => {
+
+      let searchForm = <HTMLInputElement>document.getElementById('search');
+      searchForm.value = '';
+
       this.employeeList = employees;
       this.deleteTarget = undefined;
 
@@ -237,6 +252,7 @@ export class AppComponent implements OnInit {
 
     dialogRef.componentInstance.gender_filter = this.activeFilter.gender;
     dialogRef.componentInstance.location_filter = this.activeFilter.location;
+    dialogRef.componentInstance.location_string = this.activeFilter.location_string;
 
     dialogRef.afterClosed().subscribe(result => {
       if (result)
@@ -262,6 +278,7 @@ export class DeleteDialogComponent {
 @Component({
   selector: 'app-filter-dialog',
   templateUrl: './dialog/filter-dialog.component.html',
+  styleUrls: ['./dialog/dialog.css']
 })
 export class FilterDialogComponent{
 
@@ -290,6 +307,8 @@ export class FilterDialogComponent{
   {
     this.location_filter = $event.value;
     this.location_string = $event.source.selected.viewValue;
+
+    console.log(this.location_string);
   }
 
   initiateFilter()
