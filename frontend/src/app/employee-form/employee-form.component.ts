@@ -279,6 +279,9 @@ export class EmployeeFormComponent implements OnInit {
         this.snackBar.open(`Employee ${response.firstName} ${response.lastName} edited!`, 'OK', {
           duration: 1500
         });
+      },
+      error =>  {
+        console.log(error);
       });
     }
     else
@@ -289,6 +292,9 @@ export class EmployeeFormComponent implements OnInit {
         this.snackBar.open('Employee successfully created!', 'OK', {
           duration: 1500
         });
+      },
+      error =>  {
+        console.log(error);
       });
     }
   }
