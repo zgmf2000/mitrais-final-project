@@ -58,7 +58,10 @@ export class EmployeeService {
 
   delete(employeeId) {
     return this.http.delete(`/api/modifyEmployee/${employeeId}`)
-        .map(response => {});
+        .map(response => {
+            return response.json();
+        })
+        .catch(this.handleError);
   }
   
   private handleError (error: Response | any) 

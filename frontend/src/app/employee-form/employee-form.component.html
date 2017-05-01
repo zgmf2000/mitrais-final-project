@@ -3,7 +3,7 @@
 <div class="outer-container">
   <div class="input-container picture-input-container mobile">
     <img class="profile-picture" [src]="employeePicture" width="50%" (click)="triggerUploadWindow()">
-    <p *ngIf="forbiddenFile" class="error-message">Please use a JPG/PNG image.</p>
+    <p *ngIf="forbiddenFile" class="error-message">Please use a JPG/PNG image with a size of 250kb or less.</p>
   </div>
 
   <div class="input-container">
@@ -160,7 +160,7 @@
 
   <div class="input-container picture-input-container desktop-tablet">
     <img class="profile-picture" [src]="employeePicture" width="70%" (click)="triggerUploadWindow()">
-    <p *ngIf="forbiddenFile" class="error-message">Please use a JPG/PNG image.</p>
+    <p *ngIf="forbiddenFile" class="error-message">Please use a JPG/PNG image with a size of 250kb or less.</p>
   </div>
 </div>
 

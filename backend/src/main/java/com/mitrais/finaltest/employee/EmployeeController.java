@@ -92,7 +92,7 @@ public class EmployeeController {
             String[] matches = {"jpeg", "png"};
             String fileMimeType = photo.getContentType();
 
-            if (!fileMimeType.contains("jpeg") && !fileMimeType.contains("png"))
+            if ((!fileMimeType.contains("jpeg") && !fileMimeType.contains("png")) || photo.getSize() > 266240)
                 return new ResponseEntity<>(target, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
             else
             {
@@ -165,8 +165,14 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "modifyEmployee/{employeeId}", method = RequestMethod.DELETE)
-    ResponseEntity<String> deleteSingleEmployee(@PathVariable long employeeId) {
+    ResponseEntity<Employee> deleteSingleEmployee(@PathVariable long employeeId) {
+
+        Employee target = employeeRepository.findOne(employeeId);
+
+        if (target.getPhoto() != null)
+            new File("./../frontend/src/assets/" + target.getPhoto()).getAbsoluteFile().delete();
+
         employeeRepository.deleteByEmployeeId(employeeId);
-        return new ResponseEntity<>("Delete operation successful.", HttpStatus.OK);
+        return new ResponseEntity<>(target, HttpStatus.OK);
     }
 }

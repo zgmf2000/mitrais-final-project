@@ -251,15 +251,16 @@ export class EmployeeFormComponent implements OnInit {
 
     this.forbiddenFile = false;
 
-    if (event.target.files[0])
+    if (file)
     {
-      if (file.type === allowedTypes[0] || file.type === allowedTypes[1])
+      if ((file.type === allowedTypes[0] || file.type === allowedTypes[1]) && file.size <= 266240)
       {
         reader.onload = (event: any) =>
         {
           this.setEmployeePicture(event.target.result);
         };
-          reader.readAsDataURL(event.target.files[0]);
+
+        reader.readAsDataURL(event.target.files[0]);
       }
       else
       {
@@ -312,8 +313,9 @@ export class EmployeeFormComponent implements OnInit {
     {
       this.employeeService.add(formData).subscribe((response) => {
         this.sharedService.notifyOther({ option: 'refresh', value: 'from form' });
+        this.router.navigate(['edit',response.employeeId]);
         this.scrollFormToTop();
-        this.snackBar.open('Employee successfully created!', 'OK', {
+        this.snackBar.open(`Employee ${response.firstName} ${response.lastName} created!`, 'OK', {
           duration: 1500
         });
       },

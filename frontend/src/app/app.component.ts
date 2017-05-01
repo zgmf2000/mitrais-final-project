@@ -189,13 +189,16 @@ export class AppComponent implements OnInit {
     if (this.deleteTarget)
     {
       this.employeeService.delete(this.deleteTarget).subscribe(
-          () => {
+          (response) => {
             this.resetSelection();
             this.initiateFilter(false, false);
             this.router.navigate(['/']);
-            this.snackBar.open('Employee successfully deleted!', 'OK', {
+            this.snackBar.open(`${response.firstName} ${response.lastName} successfully deleted!`, 'OK', {
               duration: 1500
             });
+          },
+          error =>  {
+            this.handleError(error);
           }
       );
     }
