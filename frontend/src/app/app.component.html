@@ -10,8 +10,10 @@
             <md-chip-list>
                 <md-basic-chip ngClass="utility-chip">{{ employeeList.length }}</md-basic-chip>
             </md-chip-list>
-            <md-icon [ngClass]="{'utility-icon':true, 'active':activeFilter.gender!='All'||activeFilter.location!=0}" (click)="openFilterDialog()">filter_list</md-icon>
-            <md-icon [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()">sort</md-icon>
+            <i fa [size]="'1'" [name]="'filter'" [ngClass]="{'utility-icon':true, 'active':activeFilter.gender!='All'||activeFilter.location!=0}" (click)="openFilterDialog()"></i>
+            <i fa [size]="'1'" [name]="'sort-alpha-asc'" *ngIf="sortCode===0" [ngClass]="{'utility-icon':true}" (click)="initiateSort()"></i>
+            <i fa [size]="'1'" [name]="'sort-alpha-asc'" *ngIf="sortCode===1" [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()"></i>
+            <i fa [size]="'1'" [name]="'sort-alpha-desc'" *ngIf="sortCode===2" [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()"></i>
             <md-icon ngClass="utility-icon delete-icon" *ngIf="deleteTarget" (click)="openDeleteDialog()">delete</md-icon>
         </div>
     </div>
@@ -36,27 +38,27 @@
                     <md-icon class="large">person</md-icon>
                 </ng-template>
             </md-tab>
-            <md-tab tabindex="1">
+            <md-tab tabindex="1" disabled>
                 <ng-template md-tab-label>
                     <md-icon class="large">restore</md-icon>
                 </ng-template>
             </md-tab>
-            <md-tab tabindex="2">
+            <md-tab tabindex="2" disabled>
                 <ng-template md-tab-label>
                     <md-icon class="large">layers</md-icon>
                 </ng-template>
             </md-tab>
-            <md-tab tabindex="3">
+            <md-tab tabindex="3" disabled>
                 <ng-template md-tab-label>
                     <md-icon class="large">wc</md-icon>
                 </ng-template>
             </md-tab>
-            <md-tab tabindex="4">
+            <md-tab tabindex="4" disabled>
                 <ng-template md-tab-label>
                     <md-icon class="large">home</md-icon>
                 </ng-template>
             </md-tab>
-            <md-tab tabindex="5">
+            <md-tab tabindex="5" disabled>
                 <ng-template md-tab-label>
                     <md-icon class="large">place</md-icon>
                 </ng-template>

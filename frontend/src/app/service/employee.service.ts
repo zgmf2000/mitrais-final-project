@@ -13,7 +13,8 @@ export class EmployeeService {
       return this.http.get('/api/getEmployees')
           .map(response => {
               return response.json();
-          });
+          })
+          .catch(this.handleError);
   }
 
   getEmployeesFiltered(filterQuery)
@@ -25,7 +26,8 @@ export class EmployeeService {
       return this.http.get(`/api/filterEmployee?gender=${filterQuery.gender}&locationId=${filterQuery.location}`)
           .map(response => {
               return response.json();
-          });
+          })
+          .catch(this.handleError);
   }
 
   getEmployeeInfo(id)

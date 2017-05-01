@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
       if (res.hasOwnProperty('option') && res.option === 'refresh') 
       {
         this.initiateFilter(false, false);
-        this.sortEmployees();
       }
       else if (res.hasOwnProperty('option') && res.option === 'highlight')
       {
@@ -56,7 +55,7 @@ export class AppComponent implements OnInit {
       }
       else if (res.hasOwnProperty('option') && res.option === 'unhighlight')
       {
-        this.selectedEmployee = undefined;
+        this.resetSelection();
       }
     });
   }
@@ -76,6 +75,7 @@ export class AppComponent implements OnInit {
   resetSelection(routeHome:boolean = true)
   {
     this.selectedEmployee = undefined;
+    this.deleteTarget = undefined;
 
     if (routeHome)
       this.router.navigate(['/']);
@@ -87,8 +87,19 @@ export class AppComponent implements OnInit {
     (
         employees => {
           this.employeeList = employees;
+        },
+        error =>  {
+          this.handleError(error);
         }
     );
+  }
+
+  handleError(error)
+  {
+    if (error.includes('504'))
+    {
+      this.router.navigate(['error/504']);
+    }
   }
 
   sortEmployees()
@@ -152,7 +163,6 @@ export class AppComponent implements OnInit {
   initiateSearch($event)
   {
     const query = $event.target.value.toLowerCase();
-    this.deleteTarget = undefined;
     this.resetSelection();
 
     if (!this.employeeOriginalList)
@@ -178,11 +188,10 @@ export class AppComponent implements OnInit {
   {
     if (this.deleteTarget)
     {
-      this.resetSelection();
       this.employeeService.delete(this.deleteTarget).subscribe(
           () => {
-            this.deleteTarget = undefined;
-            this.getEmployees();
+            this.resetSelection();
+            this.initiateFilter(false, false);
             this.router.navigate(['/']);
             this.snackBar.open('Employee successfully deleted!', 'OK', {
               duration: 1500
@@ -194,14 +203,16 @@ export class AppComponent implements OnInit {
 
   initiateFilter(snackBar:boolean = true, routeHome:boolean = true)
   {
-    this.resetSelection(false);
     this.employeeService.getEmployeesFiltered(this.activeFilter).subscribe(employees => {
 
       let searchForm = <HTMLInputElement>document.getElementById('search');
       searchForm.value = '';
 
       this.employeeList = employees;
-      this.deleteTarget = undefined;
+      this.sortEmployees();
+
+      if (this.selectedEmployee && this.employeeList.filter((e)=>e.employeeId === this.selectedEmployee.employeeId).length === 0)
+        this.resetSelection(false);
 
       if (routeHome)
         this.router.navigate(["/"]);
@@ -217,7 +228,6 @@ export class AppComponent implements OnInit {
 
   showAddEmployeeForm()
   {
-    this.deleteTarget = undefined;
     this.resetSelection();
     this.router.navigate(['add']);
     this.hideSidebar();

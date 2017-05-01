@@ -35,6 +35,7 @@ section>.utility-container
 .utility-misc-component>.utility-icon
 {
     float: right;
+    text-align: center;
 }
 
 .utility-icon
@@ -71,11 +72,11 @@ section>.utility-container
     border: none;
     border-bottom: solid white 2px;
     margin-left: 5px;
-    -webkit-transition: ease all 0.1s;
-    -moz-transition: ease all 0.1s;
-    -ms-transition: ease all 0.1s;
-    -o-transition: ease all 0.1s;
-    transition: ease all 0.1s;
+    -webkit-transition: ease all 0.05s;
+    -moz-transition: ease all 0.05s;
+    -ms-transition: ease all 0.05s;
+    -o-transition: ease all 0.05s;
+    transition: ease all 0.05s;
 }
 
 .input-group>input::-webkit-input-placeholder

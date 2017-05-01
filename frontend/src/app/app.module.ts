@@ -16,6 +16,7 @@ import {
     MdMenuModule
 } from '@angular/material';
 import { DatePipe } from '@angular/common';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 
 import { AppComponent, DeleteDialogComponent, FilterDialogComponent } from './app.component';
 import { UtilityList, UtilityToken } from './providers';
@@ -25,13 +26,14 @@ import { DivisionService } from './service/division.service';
 import { SharedService } from './service/shared-service.service';
 import { GradeService } from './service/grade.service';
 import { EmployeeCardComponent } from './employee-card/employee-card.component';
-import { EmployeeFormComponent } from './employee-form/employee-form.component';
+import { EmployeeFormComponent, ErrorDialogComponent } from './employee-form/employee-form.component';
 import { routing } from './app.routing';
 import { EmployeeContainerPlaceholderComponent } from './employee-container-placeholder/employee-container-placeholder.component';
-import { EmployeeNotFoundComponent } from './employee-not-found/employee-not-found.component';
+import { EmployeeErrorComponent } from './employee-error/employee-error.component';
 
 @NgModule({
   imports: [
+      Angular2FontawesomeModule,
       BrowserModule,
       BrowserAnimationsModule,
       ReactiveFormsModule,
@@ -53,14 +55,16 @@ import { EmployeeNotFoundComponent } from './employee-not-found/employee-not-fou
       AppComponent,
       DeleteDialogComponent,
       FilterDialogComponent,
+      ErrorDialogComponent,
       EmployeeCardComponent,
       EmployeeFormComponent,
       EmployeeContainerPlaceholderComponent,
-      EmployeeNotFoundComponent
+      EmployeeErrorComponent
   ],
   entryComponents: [
       DeleteDialogComponent,
-      FilterDialogComponent
+      FilterDialogComponent,
+      ErrorDialogComponent
   ],
   providers: [
       EmployeeService,

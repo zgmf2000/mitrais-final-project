@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MdDialogConfig, MdDialogRef, MdSnackBar, MdDialog } from '@angular/material';
 import { EmployeeService } from '../service/employee.service';
 import { LocationService } from '../service/location.service';
 import { GradeService } from '../service/grade.service';
@@ -68,6 +68,7 @@ export class EmployeeFormComponent implements OnInit {
       public snackBar: MdSnackBar,
       private router: Router,
       private datePipe: DatePipe,
+      public dialog: MdDialog,
       @Inject(UtilityToken) public utilityList
   )
   {
@@ -104,8 +105,31 @@ export class EmployeeFormComponent implements OnInit {
       this.sharedService.notifyOther({ option: 'highlight', value: employee });
     },
     error =>  {
-      this.router.navigate(['404']);
-    })
+      this.handleError(error);
+    });
+  }
+
+  handleError(error)
+  {
+    if (error.includes('404'))
+      this.router.navigate(['error/404']);
+    else if (error.includes('504'))
+    {
+      this.router.navigate(['error/504']);
+    }
+    else if (error.includes('415'))
+    {
+      let errorTitle = `Unsupported Media Type`;
+      let errorMessage = `Unsupported Media Type. We only accept JPG and PNG images for profile pictures.`;
+      this.openErrorDialog(errorTitle, errorMessage);
+    }
+    else
+    {
+      let errorTitle = `Generic Error`;
+      let errorMessage = `Sorry, but there's something wrong when sending your request. Please contact the System Administrator and tell them about this error:
+      ${error}`;
+      this.openErrorDialog(errorTitle, errorMessage);
+    }
   }
 
   ngOnInit() {
@@ -249,7 +273,7 @@ export class EmployeeFormComponent implements OnInit {
     this.submitted = true;
 
     //Required to trigger invalid style on md-select elements.
-    if (!this.form.valid)
+    if (!this.form.valid || this.forbiddenFile)
     {
       this.form.get('gender').markAsTouched();
       this.form.get('locationId').markAsTouched();
@@ -281,7 +305,7 @@ export class EmployeeFormComponent implements OnInit {
         });
       },
       error =>  {
-        console.log(error);
+        this.handleError(error);
       });
     }
     else
@@ -294,9 +318,28 @@ export class EmployeeFormComponent implements OnInit {
         });
       },
       error =>  {
-        console.log(error);
+        this.handleError(error);
       });
     }
   }
 
+  openErrorDialog(errorTitle, errorMessage)
+  {
+    let config = new MdDialogConfig();
+    let dialogRef = this.dialog.open(ErrorDialogComponent, config);
+
+    dialogRef.componentInstance.errorTitle = errorTitle;
+    dialogRef.componentInstance.errorMessage = errorMessage;
+  }
+}
+
+@Component({
+  selector: 'app-error-dialog',
+  templateUrl: './../dialog/error-dialog.component.html',
+  styleUrls: ['./../dialog/dialog.css']
+})
+export class ErrorDialogComponent {
+  constructor(public dialogRef: MdDialogRef<ErrorDialogComponent>) {}
+  errorTitle;
+  errorMessage;
 }
