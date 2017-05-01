@@ -71,6 +71,16 @@
     height: calc(100vh - 161px);
 }
 
+.input-container.picture-input-container.mobile .error-message
+{
+    padding: 0 35px;
+}
+
+.input-container.picture-input-container.desktop-tablet .error-message
+{
+    padding: 0 10px;
+}
+
 @media only screen and (max-width: 600px)
 {
     .input-container
