@@ -15,6 +15,8 @@ This project uses the default MySQL configuration from XAMPP, which uses the por
 Please kindly edit the **application.properties** file located in the **backend/src/main/resources** directory to reconfigure the database.
 
 ## Running the Project
+**For maximum compatibility, it is recommended to use Google Chrome.**
+
 Before running the project, please make sure you have Maven installed.
 1. Run MySQL (using XAMPP is recommended).
 2. Import the database using the provided script (**emsdb-script.sql**) located in **backend** directory.
