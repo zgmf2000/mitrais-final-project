@@ -10,10 +10,10 @@
             <md-chip-list>
                 <md-basic-chip ngClass="utility-chip">{{ employeeList.length }}</md-basic-chip>
             </md-chip-list>
-            <i fa [size]="'1'" [name]="'filter'" [ngClass]="{'utility-icon':true, 'active':activeFilter.gender!='All'||activeFilter.location!=0}" (click)="openFilterDialog()"></i>
-            <i fa [size]="'1'" [name]="'sort-alpha-asc'" *ngIf="sortCode===0" [ngClass]="{'utility-icon':true}" (click)="initiateSort()"></i>
-            <i fa [size]="'1'" [name]="'sort-alpha-asc'" *ngIf="sortCode===1" [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()"></i>
-            <i fa [size]="'1'" [name]="'sort-alpha-desc'" *ngIf="sortCode===2" [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()"></i>
+            <i fa [size]="'1'" mdTooltip="Filter" [name]="'filter'" [ngClass]="{'utility-icon':true, 'active':activeFilter.gender!='All'||activeFilter.location!=0}" (click)="openFilterDialog()"></i>
+            <i fa [size]="'1'" mdTooltip="Sort by Last Name" [name]="'sort-alpha-asc'" *ngIf="sortCode===0" [ngClass]="{'utility-icon':true}" (click)="initiateSort()"></i>
+            <i fa [size]="'1'" mdTooltip="Sort by Last Name" [name]="'sort-alpha-asc'" *ngIf="sortCode===1" [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()"></i>
+            <i fa [size]="'1'" mdTooltip="Sort by Last Name" [name]="'sort-alpha-desc'" *ngIf="sortCode===2" [ngClass]="{'utility-icon':true, 'active':sortCode > 0}" (click)="initiateSort()"></i>
             <md-icon ngClass="utility-icon delete-icon" *ngIf="deleteTarget" (click)="openDeleteDialog()">delete</md-icon>
         </div>
     </div>

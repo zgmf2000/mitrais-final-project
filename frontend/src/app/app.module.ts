@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {
     MdInputModule,
+    MdTooltipModule,
     MdSelectModule,
     MdCardModule,
     MdButtonModule,
@@ -41,6 +42,7 @@ import { EmployeeErrorComponent } from './employee-error/employee-error.componen
       HttpModule,
       routing,
       MdInputModule,
+      MdTooltipModule,
       MdSelectModule,
       MdCardModule,
       MdButtonModule,
